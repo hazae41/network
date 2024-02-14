@@ -1,7 +1,7 @@
 # Network
 
-The network token
+The Network token
 
-- [Explainer](https://github.com/hazae41/net/blob/main/rfc/TOKEN.md)
-- [Contracts](https://github.com/hazae41/net/tree/main/contracts)
-- [Demo website](https://example-net-website.vercel.app) ([and its repository](https://github.com/hazae41/example-net-website))
+- [Explainer](https://github.com/hazae41/network/blob/main/rfc/TOKEN.md)
+- [Contracts](https://github.com/hazae41/nnetworket/tree/main/contracts)
+- [Demo website](https://example-network-website.vercel.app) ([and its repository](https://github.com/hazae41/example-network-website))
