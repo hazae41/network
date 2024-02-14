@@ -1,4 +1,4 @@
-# net
+# network
 The network token
 
 - [Explainer](https://github.com/hazae41/net/blob/main/rfc/TOKEN.md)
