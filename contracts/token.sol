@@ -7,14 +7,14 @@ import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Permit.sol";
 
 uint256 constant U256_MAX = (2 ** 256) - 1;
 
-contract Net is ERC20, ERC20Burnable {
+contract Network is ERC20, ERC20Burnable {
 
     mapping(uint256 => bool) hashes;
 
     uint256 max = 0;
 
     constructor()
-        ERC20("Net", "NET")
+        ERC20("Network", "NET")
     {}
 
     function claim(uint256[] calldata nonces) public {
