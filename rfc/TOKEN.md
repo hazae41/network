@@ -18,7 +18,7 @@ Alice --- "Hey Bob, what's your address and how much tokens do you want?" ---> B
 
 Alice <--- "My address is 0x... on Ethereum and I want at minimum 100 tokens" --- Bob
 
-Once Alice knows those three things, she can start mining tokens (from milliseconds to seconds depending on the difficulty). Once she found a solution to some cryptographic problem, her proof is ready to be sent to Bob.
+Once Alice knows those three things, she can start mining tokens (from milliseconds to seconds depending on the number of tokens). Once she found a solution to some cryptographic problem, her proof is ready to be sent to Bob.
 
 ### Non-interactive exchange
 
