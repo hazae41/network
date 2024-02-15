@@ -33,7 +33,7 @@ while (true) {
   const nonceHashBytes = Keccak256.get().hashOrThrow(nonceBytes).copyAndDispose()
 
   /**
-   * Mix the secret with the public stuff
+   * Mix the proof with the public stuff
    */
   const divisorAbi = DivisorStruct.from([keyHashBytes, nonceHashBytes])
   const divisorBytes = Writable.writeToBytesOrThrow(divisorAbi)
