@@ -11,7 +11,7 @@ contract Network is ERC20, ERC20Burnable {
 
     mapping(uint256 => bool) hashes;
 
-    uint256 max = 0;
+    uint256 max = 1;
 
     constructor()
         ERC20("Network", "NET")
@@ -39,7 +39,7 @@ contract Network is ERC20, ERC20Burnable {
 
             if (divisor == 0)
                 continue;
-                
+
             uint256 value;
 
             /**
