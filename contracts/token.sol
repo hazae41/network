@@ -9,11 +9,6 @@ uint256 constant U256_MAX = (2 ** 256) - 1;
 
 contract Network is ERC20, ERC20Burnable {
 
-    /**
-     * Cross-chain and cross-contract replay protection
-     */
-    uint256 immutable public key = uint256(keccak256(abi.encode(block.chainid, address(this))));
-
     mapping(uint256 => bool) proofs;
 
     uint256 max = 1;
@@ -35,7 +30,7 @@ contract Network is ERC20, ERC20Burnable {
             /**
              * Value is different for each given chain + contract + receiver
              */
-            uint256 divisor = uint256(keccak256(abi.encode(key, msg.sender, proof)));
+            uint256 divisor = uint256(keccak256(abi.encode(block.chainid, address(this), msg.sender, proof)));
 
             if (divisor == 0)
                 continue;

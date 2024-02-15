@@ -7,14 +7,29 @@ import { Keccak256 } from "@hazae41/keccak256"
 
 Keccak256.set(await Keccak256.fromMorax())
 
-const DivisorStruct = Abi.Tuple.create(Abi.Uint256, Abi.Address, Abi.Uint256)
+/**
+ * Max uint256 value
+ */
+const maxUint256BigInt = (2n ** 256n) - 1n
 
 /**
- * Precomputed chainId + contract hash
+ * Mixing ABI struct
  */
-const keyBigInt = 90442557349208564432276667675164889511323241952563730180144940511601581330995n
-const keyBase16 = keyBigInt.toString(16)
-const keyBytes = Base16.get().padStartAndDecodeOrThrow(keyBase16).copyAndDispose()
+const Mixin = Abi.Tuple.create(Abi.Uint64, Abi.Address, Abi.Address, Abi.Uint256)
+
+/**
+ * Chain ID
+ */
+const chainInt = 1
+const chainBase16 = chainInt.toString(16)
+const chainBytes = Base16.get().padStartAndDecodeOrThrow(chainBase16).copyAndDispose()
+
+/**
+ * Contract address
+ */
+const contractZeroHex = "0xB57ee0797C3fc0205714a577c02F7205bB89dF30"
+const contractBase16 = contractZeroHex.slice(2)
+const contractBytes = Base16.get().padStartAndDecodeOrThrow(contractBase16).copyAndDispose()
 
 /**
  * Receiver address
@@ -37,7 +52,7 @@ while (true) {
   /**
    * Mix the proof with the public stuff
    */
-  const mixinAbi = DivisorStruct.from([keyBytes, receiverBytes, proofBytes])
+  const mixinAbi = Mixin.from([chainBytes, contractBytes, receiverBytes, proofBytes])
   const mixinBytes = Writable.writeToBytesOrThrow(mixinAbi)
 
   /**
@@ -50,19 +65,19 @@ while (true) {
   /**
    * Compute the value
    */
-  const value = ((2n ** 256n) - 1n) / divisorBigInt
+  const valueBigInt = maxUint256BigInt / divisorBigInt
 
   /**
    * Filter values that are too small
    */
-  if (value > (10n ** 6n)) {
+  if (valueBigInt > (10n ** 6n)) {
     const secretBase16 = Base16.get().encodeOrThrow(secretBytes)
     const secretZeroHex = `0x${secretBase16.padStart(64, "0")}`
 
     const proofBase16 = Base16.get().encodeOrThrow(proofBytes)
     const proofZeroHex = `0x${proofBase16.padStart(64, "0")}`
 
-    console.log(value, secretZeroHex, proofZeroHex)
+    console.log(valueBigInt, secretZeroHex, proofZeroHex)
     continue
   }
 
