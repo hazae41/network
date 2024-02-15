@@ -31,17 +31,15 @@ contract Network is ERC20, ERC20Burnable {
 
             if (hashes[hash])
                 continue;
-            uint256 divisor;
 
             /**
              * Zero-knowledge proof
              */
-            unchecked {
-                divisor = uint256(keccak256(abi.encode(key, hash)));
-            }
+            uint256 divisor = uint256(keccak256(abi.encode(key, hash)));
 
             if (divisor == 0)
                 continue;
+                
             uint256 value;
 
             /**
