@@ -9,7 +9,12 @@ uint256 constant U256_MAX = (2 ** 256) - 1;
 
 contract Network is ERC20, ERC20Burnable {
 
-    mapping(uint256 => bool) hashes;
+    /**
+     * Cross-chain and cross-contract replay protection
+     */
+    uint256 immutable public key = uint256(keccak256(abi.encode(block.chainid, address(this))));
+
+    mapping(uint256 => bool) proofs;
 
     uint256 max = 1;
 
@@ -17,25 +22,20 @@ contract Network is ERC20, ERC20Burnable {
         ERC20("Network", "NET")
     {}
 
-    function claim(uint256[] calldata nonces) public {
-        /**
-         * Public inputs as versioning and replay protection
-         */
-        uint256 key = uint256(keccak256(abi.encode(block.chainid, address(this), msg.sender)));
-
-        for (uint i = 0; i < nonces.length; i++) {
-            /**
-             * Private inputs
-             */
-            uint256 hash = uint256(keccak256(abi.encode(nonces[i])));
-
-            if (hashes[hash])
-                continue;
-
+    function claim(uint256[] calldata secrets) public {
+        for (uint i = 0; i < secrets.length; i++) {
             /**
              * Zero-knowledge proof
              */
-            uint256 divisor = uint256(keccak256(abi.encode(key, hash)));
+            uint256 proof = uint256(keccak256(abi.encode(secrets[i])));
+
+            if (proofs[proof])
+                continue;
+
+            /**
+             * Value is different for each given chain + contract + receiver
+             */
+            uint256 divisor = uint256(keccak256(abi.encode(key, msg.sender, proof)));
 
             if (divisor == 0)
                 continue;
@@ -63,7 +63,7 @@ contract Network is ERC20, ERC20Burnable {
             }
 
             _mint(msg.sender, value);
-            hashes[hash] = true;
+            proofs[proof] = true;
         }
     }
 
