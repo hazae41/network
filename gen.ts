@@ -12,12 +12,12 @@ const DivisorStruct = Abi.Tuple.create(Abi.Uint256, Abi.Uint256)
 
 const chainId = 1
 const contract = "0xb27A31f1b0AF2946B7F582768f03239b1eC07c2c"
-const address = "0x5B38Da6a701c568545dCfcB03FcB875f56beddC4"
+const receiver = "0x5B38Da6a701c568545dCfcB03FcB875f56beddC4"
 
 /**
  * Compute the public stuff
  */
-const keyAbi = KeyStruct.from([chainId, contract, address])
+const keyAbi = KeyStruct.from([chainId, contract, receiver])
 const keyBytes = Writable.writeToBytesOrThrow(keyAbi)
 const keyHashBytes = Keccak256.get().hashOrThrow(keyBytes).copyAndDispose()
 
