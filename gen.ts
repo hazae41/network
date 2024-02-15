@@ -38,7 +38,14 @@ const receiverZeroHex = "0x5B38Da6a701c568545dCfcB03FcB875f56beddC4"
 const receiverBase16 = receiverZeroHex.slice(2)
 const receiverBytes = Base16.get().padStartAndDecodeOrThrow(receiverBase16).copyAndDispose()
 
-while (true) {
+const mixinAbi = Mixin.from([chainBytes, contractBytes, receiverBytes, new Uint8Array(32)])
+const mixinBytes = Writable.writeToBytesOrThrow(mixinAbi)
+
+let amountBigInt = 0n
+
+const start = Date.now()
+
+while (amountBigInt < (10n ** 6n)) {
   /**
    * Generate a secret
    */
@@ -52,8 +59,7 @@ while (true) {
   /**
    * Mix the proof with the public stuff
    */
-  const mixinAbi = Mixin.from([chainBytes, contractBytes, receiverBytes, proofBytes])
-  const mixinBytes = Writable.writeToBytesOrThrow(mixinAbi)
+  mixinBytes.set(proofBytes, mixinBytes.length - 32)
 
   /**
    * Compute the divisor
@@ -70,16 +76,19 @@ while (true) {
   /**
    * Filter values that are too small
    */
-  if (valueBigInt > (10n ** 6n)) {
-    const secretBase16 = Base16.get().encodeOrThrow(secretBytes)
-    const secretZeroHex = `0x${secretBase16.padStart(64, "0")}`
-
-    const proofBase16 = Base16.get().encodeOrThrow(proofBytes)
-    const proofZeroHex = `0x${proofBase16.padStart(64, "0")}`
-
-    console.log(valueBigInt, secretZeroHex, proofZeroHex)
+  if (valueBigInt < (10n ** 4n))
     continue
-  }
+
+  const secretBase16 = Base16.get().encodeOrThrow(secretBytes)
+  const secretZeroHex = `0x${secretBase16.padStart(64, "0")}`
+
+  const proofBase16 = Base16.get().encodeOrThrow(proofBytes)
+  const proofZeroHex = `0x${proofBase16.padStart(64, "0")}`
+
+  console.log(valueBigInt, secretZeroHex, proofZeroHex)
+  amountBigInt += valueBigInt
 
   continue
 }
+
+console.log(`You just generated ${amountBigInt} wei worth of secrets in ${Date.now() - start} milliseconds`)
