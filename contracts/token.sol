@@ -8,9 +8,9 @@ uint256 constant U256_MAX = (2 ** 256) - 1;
 
 contract Network is ERC20, ERC20Burnable {
 
-    mapping(uint256 => bool) proofs;
+    mapping(uint256 => bool) public proofs;
 
-    uint256 max = 1;
+    uint256 public maximum = 1;
 
     constructor()
         ERC20("Network", "NET")
@@ -46,14 +46,14 @@ contract Network is ERC20, ERC20Burnable {
             /**
              * Automatic probabilistic halving
              */
-            if (value > max) {
+            if (value > maximum) {
                 /**
                  * 1%
                  */
-                uint256 max2 = ((99 * max) + value) / 100;
+                uint256 maximum2 = ((99 * maximum) + value) / 100;
 
-                value = max;
-                max = max2;
+                value = maximum;
+                maximum = maximum2;
             }
 
             _mint(msg.sender, value);
