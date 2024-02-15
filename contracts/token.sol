@@ -19,13 +19,13 @@ contract Network is ERC20, ERC20Burnable {
 
     function claim(uint256[] calldata nonces) public {
         /**
-         * Public input as replay protection
+         * Public inputs as versioning and replay protection
          */
-        uint256 offset = uint256(keccak256(abi.encode(block.chainid, msg.sender)));
+        uint256 key = uint256(keccak256(abi.encode(block.chainid, address(this), msg.sender)));
 
         for (uint i = 0; i < nonces.length; i++) {
             /**
-             * Private input as work solution
+             * Private inputs
              */
             uint256 hash = uint256(keccak256(abi.encode(nonces[i])));
 
@@ -37,7 +37,7 @@ contract Network is ERC20, ERC20Burnable {
              * Zero-knowledge proof
              */
             unchecked {
-                divisor = offset + hash;
+                divisor = uint256(keccak256(abi.encode(key, hash)));
             }
 
             if (divisor == 0)
@@ -52,12 +52,16 @@ contract Network is ERC20, ERC20Burnable {
             }
 
             /**
-             * Automatic halving
+             * Automatic probabilistic halving
              */
             if (value > max) {
-                uint256 tmp = value;
+                /**
+                 * 1%
+                 */
+                uint256 max2 = ((99 * max) + value) / 100;
+
                 value = max;
-                max = tmp;
+                max = max2;
             }
 
             _mint(msg.sender, value);
