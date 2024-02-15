@@ -43,6 +43,18 @@ const mixinBytes = Writable.writeToBytesOrThrow(mixinAbi)
 
 let amountBigInt = 0n
 
+interface Secret {
+  readonly secretZeroHex: string,
+  readonly proofZeroHex: string,
+  readonly valueBigInt: bigint
+}
+
+const secrets = new Array<Secret>()
+
+function sort(a: Secret, b: Secret) {
+  return a.valueBigInt < b.valueBigInt ? -1 : 1
+}
+
 const start = Date.now()
 
 while (amountBigInt < (10n ** 6n)) {
@@ -73,10 +85,7 @@ while (amountBigInt < (10n ** 6n)) {
    */
   const valueBigInt = maxUint256BigInt / divisorBigInt
 
-  /**
-   * Filter values that are too small
-   */
-  if (valueBigInt < (10n ** 4n))
+  if (valueBigInt < 1000n)
     continue
 
   const secretBase16 = Base16.get().encodeOrThrow(secretBytes)
@@ -85,10 +94,24 @@ while (amountBigInt < (10n ** 6n)) {
   const proofBase16 = Base16.get().encodeOrThrow(proofBytes)
   const proofZeroHex = `0x${proofBase16.padStart(64, "0")}`
 
-  console.log(valueBigInt, secretZeroHex, proofZeroHex)
-  amountBigInt += valueBigInt
+  if (secrets.length === 10) {
+    if (valueBigInt < secrets[0].valueBigInt)
+      continue
+
+    amountBigInt -= secrets[0].valueBigInt
+    secrets[0] = { secretZeroHex, valueBigInt, proofZeroHex }
+    secrets.sort(sort)
+    amountBigInt += valueBigInt
+  } else {
+    secrets.push({ secretZeroHex, valueBigInt, proofZeroHex })
+    secrets.sort(sort)
+    amountBigInt += valueBigInt
+  }
 
   continue
 }
 
-console.log(`You just generated ${amountBigInt} wei worth of secrets in ${Date.now() - start} milliseconds`)
+for (const { secretZeroHex, proofZeroHex, valueBigInt } of secrets)
+  console.log(valueBigInt, secretZeroHex, proofZeroHex)
+
+console.log(`You just generated ${amountBigInt} wei with ${secrets.length} secrets in ${Date.now() - start} milliseconds`)
