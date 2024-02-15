@@ -4,7 +4,7 @@ Let's monetize any service for free
 
 ## TLDR
 
-This is an ERC-20 token that anybody can mine by **Proof-of-Work** using Keccak256 with **dynamic difficulty**. It uses **Non-Interactive Zero-Knowledge Proofs** to exchange value between a service running on the Internet and a client. The client doesn't need to disclose any information about its identity. The server only needs to disclose **an Ethereum address** it wants to receive tokens on. There are two modes of exchange, non-interactive (faster but riskier) and interactive (slower but safer). Once a server accumulated enough proofs, it can exchange them against fresh tokens. Any client can **buy tokens** on the secondary market to use the service without mining. There is an automatic algorithmic **halving**.
+This is an ERC-20 token that anybody can mine by **Proof-of-Work** using Keccak256 with **dynamic difficulty**. It uses **Non-Interactive Zero-Knowledge Proofs** to exchange value between a service running on the Internet and a client. The client doesn't need to disclose any information about its identity. The server only needs to disclose **an Ethereum address** it wants to receive tokens on. There are two modes of exchange, non-interactive (faster but riskier) and interactive (slower but safer). Once a server accumulated enough proofs, it can exchange them against fresh tokens. Any client can **buy tokens** on the secondary market to use the service without mining. There is an automatic algorithmic **probabilistic halving**.
 
 ## Motivation
 
