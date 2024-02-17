@@ -51,15 +51,14 @@ contract Network is ERC20, ERC20Burnable {
             /**
              * Automatic probabilistic halving
              */
-            if (value > average) {
-                uint256 count2 = count + 1;
-                uint256 average2 = ((count * average) + value) / count2;
+            uint256 count2 = count + 1;
+            uint256 average2 = ((count * average) + value) / count2;
 
+            if (value > average)
                 value = average;
 
-                count = count2;
-                average = average2;
-            }
+            count = count2;
+            average = average2;
 
             isClaimed[secret] = true;
 
