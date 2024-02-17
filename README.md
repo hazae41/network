@@ -1,6 +1,6 @@
 # Network
 
-The Network token
+An anonymous PoW token to monetize the web
 
 - [Explainer](https://github.com/hazae41/network/blob/main/rfc/TOKEN.md)
 - [Contracts](https://github.com/hazae41/network/tree/main/contracts)
