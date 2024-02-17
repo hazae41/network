@@ -41,7 +41,7 @@ const chainBytes = Base16.get().padStartAndDecodeOrThrow(chainBase16).copyAndDis
 /**
  * Contract address
  */
-const contractZeroHex = "0xd9145CCE52D386f254917e481eB44e9943F39138"
+const contractZeroHex = "0xDA0bab807633f07f013f94DD0E6A4F96F8742B53"
 const contractBase16 = contractZeroHex.slice(2)
 const contractBytes = Base16.get().padStartAndDecodeOrThrow(contractBase16).copyAndDispose()
 
@@ -58,7 +58,7 @@ const mixinOffset = mixinBytes.length - 32
 
 const secrets = new Array<Secret>()
 
-const priceBigInt = 10n ** 6n
+const priceBigInt = 10n ** 7n
 
 const secretBytes = new Uint8Array(32)
 
@@ -94,7 +94,7 @@ while (totalBigInt < priceBigInt) {
    */
   const valueBigInt = maxUint256BigInt / divisorBigInt
 
-  if (secrets.length === 10) {
+  if (secrets.length === 1000) {
     /**
      * Skip if the value is too small
      */
@@ -131,7 +131,5 @@ while (totalBigInt < priceBigInt) {
 
 const end = Date.now()
 
-for (const { secretZeroHex, proofZeroHex, valueBigInt } of secrets)
-  console.log(valueBigInt, secretZeroHex, proofZeroHex)
-
+console.log(JSON.stringify(secrets.map(x => x.secretZeroHex)))
 console.log(`You just generated ${totalBigInt} wei with ${secrets.length} secrets in ${end - start} milliseconds`)
