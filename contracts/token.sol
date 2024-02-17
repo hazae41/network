@@ -8,23 +8,28 @@ uint256 constant U256_MAX = (2 ** 256) - 1;
 
 contract Network is ERC20, ERC20Burnable {
 
-    mapping(uint256 => bool) public proofs;
+    mapping(uint256 => bool) public isClaimed;
 
-    uint256 public maximum = 1;
+    uint256 public count = 0;
+    uint256 public average = 0;
 
     constructor()
         ERC20("Network", "NET")
     {}
 
     function claim(uint256[] calldata secrets) public {
-        for (uint i = 0; i < secrets.length; i++) {
+        uint256 total = 0;
+
+        for (uint256 i = 0; i < secrets.length; i++) {
+            uint256 secret = secrets[i];
+
+            if (isClaimed[secret])
+                continue;
+
             /**
              * Zero-knowledge proof
              */
-            uint256 proof = uint256(keccak256(abi.encode(secrets[i])));
-
-            if (proofs[proof])
-                continue;
+            uint256 proof = uint256(keccak256(abi.encode(secret)));
 
             /**
              * Value is different for each given chain + contract + receiver
@@ -46,19 +51,22 @@ contract Network is ERC20, ERC20Burnable {
             /**
              * Automatic probabilistic halving
              */
-            if (value > maximum) {
-                /**
-                 * 1%
-                 */
-                uint256 maximum2 = ((99 * maximum) + value) / 100;
+            if (value > average) {
+                uint256 count2 = count + 1;
+                uint256 average2 = ((count * average) + value) / count2;
 
-                value = maximum;
-                maximum = maximum2;
+                value = average;
+
+                count = count2;
+                average = average2;
             }
 
-            _mint(msg.sender, value);
-            proofs[proof] = true;
+            isClaimed[secret] = true;
+
+            total += value;
         }
+
+        _mint(msg.sender, total);
     }
 
 }

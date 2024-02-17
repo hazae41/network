@@ -41,7 +41,7 @@ const chainBytes = Base16.get().padStartAndDecodeOrThrow(chainBase16).copyAndDis
 /**
  * Contract address
  */
-const contractZeroHex = "0xB57ee0797C3fc0205714a577c02F7205bB89dF30"
+const contractZeroHex = "0xd9145CCE52D386f254917e481eB44e9943F39138"
 const contractBase16 = contractZeroHex.slice(2)
 const contractBytes = Base16.get().padStartAndDecodeOrThrow(contractBase16).copyAndDispose()
 
@@ -58,19 +58,15 @@ const mixinOffset = mixinBytes.length - 32
 
 const secrets = new Array<Secret>()
 
-const priceBigInt = 10n ** 5n
-
-const maxCountNumber = 10
-const maxCountBigInt = BigInt(maxCountNumber)
-const minValueBigInt = priceBigInt / maxCountBigInt
+const priceBigInt = 10n ** 6n
 
 const secretBytes = new Uint8Array(32)
 
-let amountBigInt = 0n
+let totalBigInt = 0n
 
 const start = Date.now()
 
-while (amountBigInt < priceBigInt) {
+while (totalBigInt < priceBigInt) {
   /**
    * Generate a secret
    */
@@ -98,10 +94,7 @@ while (amountBigInt < priceBigInt) {
    */
   const valueBigInt = maxUint256BigInt / divisorBigInt
 
-  if (valueBigInt < minValueBigInt)
-    continue
-
-  if (secrets.length === maxCountNumber) {
+  if (secrets.length === 10) {
     /**
      * Skip if the value is too small
      */
@@ -111,7 +104,7 @@ while (amountBigInt < priceBigInt) {
     /**
      * Replace the smallest secret
      */
-    amountBigInt -= secrets[0].valueBigInt
+    totalBigInt -= secrets[0].valueBigInt
 
     const secretBase16 = Base16.get().encodeOrThrow(secretBytes)
     const secretZeroHex = `0x${secretBase16.padStart(64, "0")}`
@@ -131,12 +124,14 @@ while (amountBigInt < priceBigInt) {
   }
 
   secrets.sort(Secret.sortLowToHigh)
-  amountBigInt += valueBigInt
+  totalBigInt += valueBigInt
 
   continue
 }
 
+const end = Date.now()
+
 for (const { secretZeroHex, proofZeroHex, valueBigInt } of secrets)
   console.log(valueBigInt, secretZeroHex, proofZeroHex)
 
-console.log(`You just generated ${amountBigInt} wei with ${secrets.length} secrets in ${Date.now() - start} milliseconds`)
+console.log(`You just generated ${totalBigInt} wei with ${secrets.length} secrets in ${end - start} milliseconds`)
