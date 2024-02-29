@@ -1,27 +1,43 @@
 # Network
 
-An anonymous PoW token to monetize the web
+An anonymous token to monetize the web with Proof-of-Work
 
 - [All projects](https://github.com/stars/hazae41/lists/network)
 
 ## TLDR
 
-You can now monetize any service on the Internet for free — by making people run a PoW algorithm and anonymously send you value in exchange of service.
+You can now monetize any service on the Internet for free — by making people run a PoW algorithm and anonymously send you value in exchange of service
 
-## Summary
+## Use case
 
-- This is an ERC-20 token that can be mine by **Proof-of-Work** using Keccak256 with **dynamic difficulty**
-- It uses **Non-Interactive Zero-Knowledge Proofs** to exchange value between a service running on the Internet and a client.
-- The client doesn't need to disclose any information about its identity.
-- The server only needs to disclose **an Ethereum address** it wants to receive tokens on.
-- There are two modes of exchange, non-interactive (faster but riskier) and interactive (slower but safer).
-- Once a server accumulated enough proofs, it can exchange them against fresh tokens.
-- Any client can **buy tokens** on the secondary market to use the service without mining.
-- There is an automatic algorithmic **probabilistic halving**.
+- A website that wants to monetize its traffic by making visitors run PoW
+- A crypto faucet that makes people run PoW in order to get "free" tokens
+- A proxy that wants to monetize its usage by making users run PoW
+- A peer-to-peer network that wants to reduce spam
+- A free service that wants to reduce spam
 
-## Motivation
+## Explain like I'm 5
 
-Let's suppose you want to prevent spam and also want to monetize a service running on Internet. 
+Let's suppose there is Bob (the server) offering some service to Alice (the client)
+
+- Bob sends his Ethereum address to Alice
+- Alice can generate some secrets with the Network algorithm
+- Those secrets only have value for Bob because they are tied to his Ethereum address
+- The value of a secret is tied to its rarity because of some mathematical stuff
+- Alice generates multiple secrets until one of them has some expected value
+- The higher the value Alice seeks, the longer it will take her to generate it
+- Alice can send her secrets to Bob without disclosing any more information (she is fully anonymous)
+- Alice can generate a proof that she has a secret of some value without actually sending it to Bob
+- Bob can filter and only accept secrets or proofs with at least some value (e.g. Alice must send at least 2 apples to get 1 pear)
+- Or it can simply offer service according to the value of the secret or proof (e.g. Alice sent 10 apples so she will get 10 pears)
+- Bob can exchange all its secrets to get tokens by claiming them on the blockchain
+- The number of created tokens should remain constant over time even if computers get faster
+- Bob can sell tokens on Uniswap to get real money and Alice can buy tokens on Uniswap with real money
+- Alice can send tokens to Bob in order to get the same service without generating secrets and paying electricity
+
+## Algorithm
+
+See [implementation](https://github.com/hazae41/network-contracts)
 
 ## Exchange
 
