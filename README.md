@@ -13,8 +13,9 @@ You can now monetize and prevent spam on any service for free — by making peop
 - A website that wants to monetize its traffic by making visitors run PoW
 - A crypto faucet that makes people run PoW in order to get "free" tokens
 - A proxy that wants to monetize its usage by making users run PoW
-- A peer-to-peer network that wants to reduce spam
-- A free service that wants to reduce spam
+- A peer-to-peer network that wants to reduce spam and create incentives to run nodes
+- A service that no one wants to pay with real money
+- A free service that just wants to reduce spam
 
 ## Explain like I'm 5
 
