@@ -6,7 +6,7 @@ An anonymous PoW token to monetize the web and prevent spam
 
 ## TLDR
 
-You can now monetize and prevent spam on any service for free — by making people run a Proof-of-Work algorithm and anonymously send you value in exchange of service — it's like Hashcash, but instead of throwing away the computation, you use it to claim tokens on the blockchain.
+You can now monetize and prevent spam on any service for free — by making people run a Proof-of-Work algorithm and anonymously send you value in exchange of service — it's like Hashcash, but instead of throwing away the computation, you use it to claim tokens on the blockchain — enabling a new economy for free and decentralized services
 
 ## Use case
 
