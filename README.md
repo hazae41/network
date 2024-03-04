@@ -6,7 +6,7 @@ An anonymous token to monetize the web with Proof-of-Work
 
 ## TLDR
 
-You can now monetize any service on the Internet for free — by making people run a PoW algorithm and anonymously send you value in exchange of service
+You can now monetize any service on the Internet for free — by making people run a PoW algorithm and anonymously send you value in exchange of service — it's like Hashcash, but instead of throwing away the computation, you use it to claim tokens on the blockchain.
 
 ## Use case
 
