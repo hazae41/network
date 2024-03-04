@@ -10,12 +10,15 @@ You can now monetize and prevent spam on any service for free — by making peop
 
 ## Use case
 
+Here is a few examples of service that can benefit from this new scheme
+
 - A website that wants to monetize its traffic by making visitors run PoW
 - A crypto faucet that makes people run PoW in order to get "free" tokens
-- A proxy that wants to monetize its usage by making users run PoW
+- A proxy that wants to monetize its usage by making users run PoW to get bandwidth
 - A peer-to-peer network that wants to reduce spam and create incentives to run nodes
-- A free service that struggles to pay bills and want some help from its users
-- A service that no one wants to pay with real money
+- A service that no one wants to pay with real money because it would compromise their privacy
+- A service that no one wants to pay with real money because it would be too much friction
+- A free service that struggles to pay bills and wants some help from its users
 - A free service that just wants to reduce spam
 
 ## Explain like I'm 5
