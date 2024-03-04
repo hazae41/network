@@ -10,7 +10,7 @@ You can now monetize and prevent spam on any service for free — by making peop
 
 ## Use case
 
-Here is a few examples of service that can benefit from this new scheme
+Here is a few examples of services that can benefit from this new scheme
 
 - A website that wants to monetize its traffic by making visitors run PoW
 - A crypto faucet that makes people run PoW in order to get "free" tokens
