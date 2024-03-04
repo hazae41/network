@@ -33,9 +33,9 @@ Let's suppose there is Bob (the server) offering some service to Alice (the clie
 - The higher the value Alice seeks, the longer it will take her to generate it
 - Alice can send her secrets to Bob without disclosing any more information (she is fully anonymous)
 - Alice can generate a proof that she has a secret of some value without actually sending it to Bob
-- Bob can filter and only accept secrets or proofs with at least some value (e.g. Alice must send at least 2 apples to get 1 pear)
-- Or it can simply offer service according to the value of the secret or proof (e.g. Alice sent 10 apples so she will get 10 pears)
-- Bob can exchange all its secrets to get tokens by claiming them on the blockchain
+- Bob can filter and only accept secrets or proofs with at least some value (e.g. Alice must send at least 10 apples to get 1 pear and 1 watermelon)
+- Or he can simply offer service according to the value of the secret or proof (e.g. Alice sent 10 apples so she will get 10 pears)
+- Bob can exchange all his secrets to get tokens by claiming them on the blockchain
 - The number of created tokens should remain constant over time even if computers get faster
 - Bob can sell tokens on Uniswap to get real money and Alice can buy tokens on Uniswap with real money
 - Alice can send tokens to Bob in order to get the same service without generating secrets and paying electricity
