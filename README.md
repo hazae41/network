@@ -1,12 +1,12 @@
 # Network
 
-An anonymous PoW token to monetize the web
+An anonymous PoW token to monetize the web and prevent spam
 
 - [All projects](https://github.com/stars/hazae41/lists/network)
 
 ## TLDR
 
-You can now monetize any service on the Internet for free — by making people run a Proof-of-Work algorithm and anonymously send you value in exchange of service — it's like Hashcash, but instead of throwing away the computation, you use it to claim tokens on the blockchain.
+You can now monetize and prevent spam on any service on the Internet for free — by making people run a Proof-of-Work algorithm and anonymously send you value in exchange of service — it's like Hashcash, but instead of throwing away the computation, you use it to claim tokens on the blockchain.
 
 ## Use case
 
